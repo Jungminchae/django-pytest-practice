@@ -14,3 +14,8 @@ dependencies = [
 
 [tool.ruff]
 line-length = 140
+
+[tool.uv]
+dev-dependencies = [
+    "psycopg2-binary>=2.9.9",
+]
