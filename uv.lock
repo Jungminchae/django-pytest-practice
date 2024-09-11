@@ -41,13 +41,9 @@ dependencies = [
     { name = "django" },
     { name = "djangorestframework" },
     { name = "model-bakery" },
+    { name = "psycopg2-binary" },
     { name = "pytest" },
     { name = "pytest-django" },
-]
-
-[package.dev-dependencies]
-dev = [
-    { name = "psycopg2-binary" },
 ]
 
 [package.metadata]
@@ -55,12 +51,10 @@ requires-dist = [
     { name = "django", specifier = ">=5.1.1" },
     { name = "djangorestframework", specifier = ">=3.15.2" },
     { name = "model-bakery", specifier = ">=1.19.5" },
+    { name = "psycopg2-binary", specifier = ">=2.9.9" },
     { name = "pytest", specifier = ">=8.3.2" },
     { name = "pytest-django", specifier = ">=4.9.0" },
 ]
-
-[package.metadata.requires-dev]
-dev = [{ name = "psycopg2-binary", specifier = ">=2.9.9" }]
 
 [[package]]
 name = "djangorestframework"

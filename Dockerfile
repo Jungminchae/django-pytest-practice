@@ -4,7 +4,7 @@ ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
 WORKDIR /app
 COPY ./pyproject.toml uv.lock /app/
 
-RUN apk update && apk add --no-cache git postgresql-dev gcc musl-dev curl build-base libffi-dev openssl-dev python3-dev py3-psycopg2
+RUN apk update && apk add --no-cache git gcc musl-dev curl build-base libffi-dev openssl-dev python3-dev
 
 RUN uv venv .venv 
 
@@ -15,18 +15,17 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 ADD . /app
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-dev
-RUN uv add psycopg2
 
 
 FROM python:3.12-alpine
 
-
 COPY --from=builder --chown=app:app /app /app
-
 ENV PATH="/app/.venv/bin:$PATH"
+
+RUN apk add --no-cache libpq curl postgresql-dev py3-psycopg2 
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 EXPOSE 8000
 
-CMD ["python", "/app/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "/app/src/manage.py", "runserver", "0.0.0.0:8000"]
