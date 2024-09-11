@@ -27,7 +27,7 @@ class OrderService:
         self._calculate_total(order)
         return order
 
-    def _calculate_total(order):
+    def _calculate_total(self, order):
         total = order.items.aggregate(total_price=Sum(F("product__price") * F("quantity")))["total_price"] or 0
         order.total_price = total
         order.save()

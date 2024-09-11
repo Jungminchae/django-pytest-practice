@@ -2,6 +2,7 @@ import pytest
 from itertools import cycle
 from model_bakery import baker
 from django.contrib.auth import get_user_model
+from rest_framework.test import APIClient
 
 
 @pytest.fixture
@@ -22,3 +23,10 @@ def sample_order(sample_user, sample_products):
     for product in sample_products:
         baker.make("shops.OrderItem", order=order, product=product, quantity=1)
     return order
+
+
+@pytest.fixture
+def client(sample_user):
+    client = APIClient()
+    client.force_login(sample_user)
+    return client

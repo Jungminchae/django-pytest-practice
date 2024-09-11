@@ -18,3 +18,9 @@ line-length = 140
 
 [tool.uv]
 dev-dependencies = []
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "src.pytest_example.settings"
+pythonpath = ". src"
+
+
