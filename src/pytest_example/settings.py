@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "shops",
+    "pgtrigger",
 ]
 
 MIDDLEWARE = [
@@ -53,16 +54,28 @@ TEMPLATES = [
 WSGI_APPLICATION = "pytest_example.wsgi.application"
 
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "postgres",
+#         "USER": "postgres",
+#         "PASSWORD": "postgres",
+#         "HOST": "db",
+#         "PORT": "5432",
+#     }
+# }
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "postgres",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
-        "HOST": "db",
-        "PORT": "5432",
+        "NAME": "Connection parameters의 Database name",
+        "USER": "Connection parameters의 User",
+        "PASSWORD": "프로젝트 생성할 때 비밀번호",
+        "HOST": "Connection parameters의 Host",
+        "PORT": "Connection parameters의 Port",
     }
 }
+
 
 # FOR LOCAL TESTING
 # DATABASES = {
