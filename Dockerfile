@@ -30,7 +30,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 WORKDIR /app
 COPY ./entrypoint.sh wait-for-it.sh ./
-ENTRYPOINT [ "sh", "-c", ". entrypoint.sh" ]
+ENTRYPOINT [ "sh", "-c", ". ./scripts/entrypoint.sh" ]
 
 EXPOSE 8000
 CMD ["python", "src/manage.py", "runserver", "0.0.0.0:8000"]
