@@ -1,5 +1,6 @@
 import pgtrigger
 from django.db import models
+from django.contrib.postgres.fields import HStoreField
 from django.contrib.auth import get_user_model
 
 
@@ -8,6 +9,7 @@ class Product(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.IntegerField()
+    attributes = HStoreField(null=True, blank=True)
 
     class Meta:
         db_table = "product"

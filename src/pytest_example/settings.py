@@ -54,27 +54,27 @@ TEMPLATES = [
 WSGI_APPLICATION = "pytest_example.wsgi.application"
 
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "postgres",
-#         "USER": "postgres",
-#         "PASSWORD": "postgres",
-#         "HOST": "db",
-#         "PORT": "5432",
-#     }
-# }
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "Connection parameters의 Database name",
-        "USER": "Connection parameters의 User",
-        "PASSWORD": "프로젝트 생성할 때 비밀번호",
-        "HOST": "Connection parameters의 Host",
-        "PORT": "Connection parameters의 Port",
+        "NAME": "postgres",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "Connection parameters의 Database name",
+#         "USER": "Connection parameters의 User",
+#         "PASSWORD": "프로젝트 생성할 때 비밀번호",
+#         "HOST": "Connection parameters의 Host",
+#         "PORT": "Connection parameters의 Port",
+#     }
+# }
 
 
 # FOR LOCAL TESTING
@@ -114,3 +114,11 @@ STATIC_URL = "static/"
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+    }
+}
