@@ -5,7 +5,17 @@ from shops.models import Product, Order, OrderItem
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ["id", "name", "price", "stock"]
+        fields = ["id", "name", "price", "stock", "attributes"]
+
+    def validate_attributes(self, value):
+        if not isinstance(value, dict):
+            raise serializers.ValidationError("Expected a dictionary of attributes.")
+
+        for key, val in value.items():
+            if not isinstance(val, str):
+                value[key] = str(val)
+
+        return value
 
 
 class OrderItemSerializer(serializers.ModelSerializer):

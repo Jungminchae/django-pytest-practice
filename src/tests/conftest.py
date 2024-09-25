@@ -1,8 +1,17 @@
 import pytest
 from itertools import cycle
 from model_bakery import baker
+from django.db import connection
 from rest_framework.test import APIClient
 from shops.services import InventoryService, OrderService
+
+
+@pytest.fixture(scope="session")
+def django_db_setup(django_db_blocker):
+    """테스트 데이터베이스가 UP되었을 때 hstore 확장을 생성되어야 함"""
+    with django_db_blocker.unblock():
+        with connection.cursor() as cursor:
+            cursor.execute("CREATE EXTENSION IF NOT EXISTS hstore;")
 
 
 @pytest.fixture

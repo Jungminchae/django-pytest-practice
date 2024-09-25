@@ -13,3 +13,20 @@ def test_create_order(client, sample_products):
 
     # Then
     assert response.status_code == 201
+
+
+def test_create_product_with_hstore_attributes(client):
+    # Given
+    data = {
+        "name": "MacBook Pro M3",
+        "price": 3300000,
+        "stock": 10,
+        "attributes": {"color": "Space Gray", "size": "13-inch"},
+    }
+
+    # When
+    response = client.post("/api/products/", data, format="json")
+
+    # Then
+    assert response.status_code == 201
+    assert response.data["attributes"] == {"color": "Space Gray", "size": "13-inch"}

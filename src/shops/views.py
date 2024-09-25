@@ -1,5 +1,5 @@
 from rest_framework import viewsets, status
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from shops.models import Order, Product
 from shops.serializers import OrderSerializer, ProductSerializer
@@ -28,4 +28,4 @@ class OrderViewSet(viewsets.ModelViewSet):
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [AllowAny]
