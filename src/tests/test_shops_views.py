@@ -1,4 +1,5 @@
 import pytest
+from shops.models import Product
 
 pytestmark = pytest.mark.django_db
 
@@ -30,3 +31,17 @@ def test_create_product_with_hstore_attributes(client):
     # Then
     assert response.status_code == 201
     assert response.data["attributes"] == {"color": "Space Gray", "size": "13-inch"}
+
+
+def test_read_product_with_hstore_attributes(hstore_products):
+    products = Product.objects.filter(attributes__has_key="weight")
+
+    assert products.count() == 1
+    assert products.first().attributes == {"color": "White", "size": "15-inch", "weight": "1.5kg"}
+
+
+def test_read_product_with_hstore_attributes_has_any_key(hstore_products):
+    products = Product.objects.filter(attributes__has_any_keys=["returned", "weight"])
+
+    assert products.count() == 2
+    assert products.first().attributes == {"color": "Black", "size": "13-inch", "returned": "True"}

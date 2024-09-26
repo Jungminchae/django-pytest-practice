@@ -27,6 +27,12 @@ def sample_products():
 
 
 @pytest.fixture
+def hstore_products():
+    attributes = [{"color": "Black", "size": "13-inch", "returned": True}, {"color": "White", "size": "15-inch", "weight": "1.5kg"}]
+    return baker.make("shops.Product", _quantity=2, attributes=cycle(attributes))
+
+
+@pytest.fixture
 def sample_order(sample_user, sample_products):
     order = baker.make("shops.Order", user=sample_user)
     for product in sample_products:
