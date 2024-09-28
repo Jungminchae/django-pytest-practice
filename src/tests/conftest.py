@@ -12,6 +12,7 @@ def django_db_setup(django_db_blocker):
     with django_db_blocker.unblock():
         with connection.cursor() as cursor:
             cursor.execute("CREATE EXTENSION IF NOT EXISTS hstore;")
+            cursor.execute("CREATE EXTENSION IF NOT EXISTS pg_trgm;")
 
 
 @pytest.fixture
@@ -24,6 +25,13 @@ def sample_products():
     prices = [1000, 2000, 3000]
     stocks = [10, 20, 30]
     return baker.make("shops.Product", _quantity=3, price=cycle(prices), stock=cycle(stocks))
+
+
+@pytest.fixture
+def sample_products2():
+    products_name = ["MacBook Pro", "MacBook Air", "Dell XPS", "HP Spectre", "HP Envy"]
+    prices = [2500, 1500, 2000, 1800]
+    return baker.make("shops.Product", _quantity=4, name=cycle(products_name), price=cycle(prices))
 
 
 @pytest.fixture

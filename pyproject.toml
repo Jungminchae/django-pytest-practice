@@ -13,6 +13,8 @@ dependencies = [
     "psycopg2-binary>=2.9.9",
     "django-pgtrigger>=4.12.2",
     "typing-extensions>=4.12.2",
+    "pytest-sugar>=1.0.0",
+    "django-filter>=24.3",
 ]
 
 [tool.ruff]
