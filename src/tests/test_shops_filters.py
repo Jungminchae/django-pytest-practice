@@ -9,6 +9,5 @@ def test_filter_by_name_similarity(sample_products2):
     filterset = ProductFilterSet(data={"search": "HP"}, queryset=queryset)
     filtered_qs = filterset.qs
 
-    assert filtered_qs.count() == 2
+    assert filtered_qs.count() == 1
     assert filtered_qs.first().name == "HP Spectre"
-    assert filtered_qs.last().name == "HP Envy"

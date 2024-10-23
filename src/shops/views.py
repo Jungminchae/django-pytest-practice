@@ -1,6 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
+from django.core.cache import cache
 from django_filters.rest_framework import DjangoFilterBackend
 from shops.filters import ProductFilterSet
 from shops.models import Order, Product
@@ -33,3 +34,18 @@ class ProductViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
     filter_backends = [DjangoFilterBackend]
     filterset_class = ProductFilterSet
+
+    def update(self, request, *args, **kwargs):
+        lock_id = f"product-update-lock-{self.kwargs['pk']}"
+        lock = cache.lock(lock_id, timeout=3, blocking_timeout=1)
+
+        try:
+            acquired = lock.acquire(blocking=True)
+            if acquired:
+                response = super().update(request, *args, **kwargs)
+                return response
+            else:
+                return Response({"error": "3초에 한 번만 수정할 수 있습니다."}, status=status.HTTP_429_TOO_MANY_REQUESTS)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            

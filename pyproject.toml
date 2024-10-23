@@ -15,6 +15,7 @@ dependencies = [
     "typing-extensions>=4.12.2",
     "pytest-sugar>=1.0.0",
     "django-filter>=24.3",
+    "django-redis>=5.4.0",
 ]
 
 [tool.ruff]
@@ -24,7 +25,7 @@ line-length = 140
 dev-dependencies = []
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "src.pytest_example.settings"
+DJANGO_SETTINGS_MODULE = "src.pytest_example.settings_test"
 pythonpath = ". src"
 
 

@@ -21,27 +21,27 @@ def sample_user(django_user_model):
 
 
 @pytest.fixture
-def sample_products():
+def sample_products(db):
     prices = [1000, 2000, 3000]
     stocks = [10, 20, 30]
     return baker.make("shops.Product", _quantity=3, price=cycle(prices), stock=cycle(stocks))
 
 
 @pytest.fixture
-def sample_products2():
-    products_name = ["MacBook Pro", "MacBook Air", "Dell XPS", "HP Spectre", "HP Envy"]
+def sample_products2(db):
+    products_name = ["MacBook Pro", "MacBook Air", "Dell XPS", "HP Spectre"]
     prices = [2500, 1500, 2000, 1800]
     return baker.make("shops.Product", _quantity=4, name=cycle(products_name), price=cycle(prices))
 
 
 @pytest.fixture
-def hstore_products():
+def hstore_products(db):
     attributes = [{"color": "Black", "size": "13-inch", "returned": True}, {"color": "White", "size": "15-inch", "weight": "1.5kg"}]
     return baker.make("shops.Product", _quantity=2, attributes=cycle(attributes))
 
 
 @pytest.fixture
-def sample_order(sample_user, sample_products):
+def sample_order(db,sample_user, sample_products):
     order = baker.make("shops.Order", user=sample_user)
     for product in sample_products:
         baker.make("shops.OrderItem", order=order, product=product, quantity=1)
